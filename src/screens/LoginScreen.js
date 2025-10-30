@@ -16,8 +16,8 @@ import { useAuth } from '../context/AuthContext';
 import { theme } from '../theme';
 
 export const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('khuyen1@gmail.com');
+  const [password, setPassword] = useState('88888888');
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
   const { signin } = useAuth();
@@ -108,6 +108,23 @@ export const LoginScreen = ({ navigation }) => {
                   <ActivityIndicator color="#fff" />
                 ) : (
                   <Text style={styles.buttonText}>Sign In</Text>
+                )}
+              </TouchableOpacity>
+
+               <TouchableOpacity
+                style={[styles.button, loading && styles.buttonDisabled]}
+                onPress={() => {
+                  setEmail('admin@bookshop.com');
+                  setPassword('admin123');
+                  setRememberMe(true);
+                  // handleLogin();
+                }}
+                disabled={loading}
+              >
+                {loading ? (
+                  <ActivityIndicator color="#fff" />
+                ) : (
+                  <Text style={styles.buttonText}>Admin Sign In</Text>
                 )}
               </TouchableOpacity>
 

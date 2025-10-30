@@ -1,4 +1,3 @@
-import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { theme } from '../theme';
 import { formatCurrency } from '../utils/currency';

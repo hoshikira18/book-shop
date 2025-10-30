@@ -21,6 +21,7 @@ import { ManageProductsScreen } from './src/screens/ManageProductsScreen';
 import { AddProductScreen } from './src/screens/AddProductScreen';
 import { EditProductScreen } from './src/screens/EditProductScreen';
 import { ProductDetailsScreen } from './src/screens/ProductDetailsScreen';
+import { RevenueStatisticsScreen } from './src/screens/RevenueStatisticsScreen';
 import { theme } from './src/theme';
 
 const Stack = createNativeStackNavigator();
@@ -97,6 +98,11 @@ function Navigation() {
               name="ProductDetails"
               component={ProductDetailsScreen}
               options={{ title: 'Product Details' }}
+            />
+            <Stack.Screen
+              name="RevenueStatistics"
+              component={RevenueStatisticsScreen}
+              options={{ title: 'Revenue Statistics' }}
             />
             <Stack.Screen
               name="Home"

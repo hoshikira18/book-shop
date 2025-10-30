@@ -396,3 +396,158 @@ export const deleteProduct = async (productId) => {
     throw error;
   }
 };
+
+// ============ REVENUE STATISTICS FUNCTIONS ============
+
+// Get total revenue from all completed orders
+export const getTotalRevenue = async () => {
+  try {
+    const database = getDatabase();
+    const result = await database.getFirstAsync(
+      'SELECT SUM(total_amount) as total FROM orders'
+    );
+    return result?.total || 0;
+  } catch (error) {
+    console.error('Error getting total revenue:', error);
+    throw error;
+  }
+};
+
+// Get revenue by date range
+export const getRevenueByDateRange = async (startDate, endDate) => {
+  try {
+    const database = getDatabase();
+    const result = await database.getFirstAsync(
+      'SELECT SUM(total_amount) as total FROM orders WHERE order_date >= ? AND order_date <= ?',
+      [startDate, endDate]
+    );
+    return result?.total || 0;
+  } catch (error) {
+    console.error('Error getting revenue by date range:', error);
+    throw error;
+  }
+};
+
+// Get revenue for today
+export const getTodayRevenue = async () => {
+  try {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const startOfDay = today.toISOString();
+    
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const endOfDay = tomorrow.toISOString();
+    
+    return await getRevenueByDateRange(startOfDay, endOfDay);
+  } catch (error) {
+    console.error('Error getting today revenue:', error);
+    throw error;
+  }
+};
+
+// Get revenue for current month
+export const getMonthRevenue = async (year, month) => {
+  try {
+    const startDate = new Date(year, month - 1, 1);
+    const endDate = new Date(year, month, 0, 23, 59, 59);
+    
+    return await getRevenueByDateRange(startDate.toISOString(), endDate.toISOString());
+  } catch (error) {
+    console.error('Error getting month revenue:', error);
+    throw error;
+  }
+};
+
+// Get revenue for current year
+export const getYearRevenue = async (year) => {
+  try {
+    const startDate = new Date(year, 0, 1);
+    const endDate = new Date(year, 11, 31, 23, 59, 59);
+    
+    return await getRevenueByDateRange(startDate.toISOString(), endDate.toISOString());
+  } catch (error) {
+    console.error('Error getting year revenue:', error);
+    throw error;
+  }
+};
+
+// Get revenue statistics grouped by day
+export const getRevenueByday = async (limit = 7) => {
+  try {
+    const database = getDatabase();
+    const results = await database.getAllAsync(
+      `SELECT 
+        DATE(order_date) as date,
+        SUM(total_amount) as revenue,
+        COUNT(*) as order_count
+       FROM orders 
+       GROUP BY DATE(order_date) 
+       ORDER BY date DESC 
+       LIMIT ?`,
+      [limit]
+    );
+    return results;
+  } catch (error) {
+    console.error('Error getting daily revenue:', error);
+    throw error;
+  }
+};
+
+// Get revenue statistics grouped by month
+export const getRevenueByMonth = async (year) => {
+  try {
+    const database = getDatabase();
+    const results = await database.getAllAsync(
+      `SELECT 
+        strftime('%m', order_date) as month,
+        SUM(total_amount) as revenue,
+        COUNT(*) as order_count
+       FROM orders 
+       WHERE strftime('%Y', order_date) = ?
+       GROUP BY strftime('%m', order_date) 
+       ORDER BY month`,
+      [year.toString()]
+    );
+    return results;
+  } catch (error) {
+    console.error('Error getting monthly revenue:', error);
+    throw error;
+  }
+};
+
+// Get order count
+export const getOrderCount = async () => {
+  try {
+    const database = getDatabase();
+    const result = await database.getFirstAsync(
+      'SELECT COUNT(*) as count FROM orders'
+    );
+    return result?.count || 0;
+  } catch (error) {
+    console.error('Error getting order count:', error);
+    throw error;
+  }
+};
+
+// Get top selling products
+export const getTopSellingProducts = async (limit = 5) => {
+  try {
+    const database = getDatabase();
+    const results = await database.getAllAsync(
+      `SELECT 
+        oi.book_title,
+        SUM(oi.quantity) as total_sold,
+        SUM(oi.quantity * oi.price) as revenue
+       FROM order_items oi
+       GROUP BY oi.book_title
+       ORDER BY total_sold DESC
+       LIMIT ?`,
+      [limit]
+    );
+    return results;
+  } catch (error) {
+    console.error('Error getting top selling products:', error);
+    throw error;
+  }
+};

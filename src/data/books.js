@@ -13,7 +13,7 @@ export const books = [
     pages: 180,
     language: 'English',
     publisher: 'Scribner',
-    publicationDate: '1925-04-10',
+    publication_date: '1925-04-10',
   },
   {
     id: '2',
@@ -29,7 +29,7 @@ export const books = [
     pages: 324,
     language: 'English',
     publisher: 'Harper Perennial',
-    publicationDate: '1960-07-11',
+    publication_date: '1960-07-11',
   },
   {
     id: '3',
@@ -45,7 +45,7 @@ export const books = [
     pages: 328,
     language: 'English',
     publisher: 'Signet Classic',
-    publicationDate: '1949-06-08',
+    publication_date: '1949-06-08',
   },
   {
     id: '4',
@@ -61,7 +61,7 @@ export const books = [
     pages: 432,
     language: 'English',
     publisher: 'Penguin Classics',
-    publicationDate: '1813-01-28',
+    publication_date: '1813-01-28',
   },
   {
     id: '5',
@@ -77,7 +77,7 @@ export const books = [
     pages: 277,
     language: 'English',
     publisher: 'Little, Brown and Company',
-    publicationDate: '1951-07-16',
+    publication_date: '1951-07-16',
   },
   {
     id: '6',
@@ -93,7 +93,7 @@ export const books = [
     pages: 223,
     language: 'English',
     publisher: 'Bloomsbury',
-    publicationDate: '1997-06-26',
+    publication_date: '1997-06-26',
   },
   {
     id: '7',
@@ -109,7 +109,7 @@ export const books = [
     pages: 310,
     language: 'English',
     publisher: 'Houghton Mifflin',
-    publicationDate: '1937-09-21',
+    publication_date: '1937-09-21',
   },
   {
     id: '8',
@@ -125,7 +125,7 @@ export const books = [
     pages: 689,
     language: 'English',
     publisher: 'Doubleday',
-    publicationDate: '2003-03-18',
+    publication_date: '2003-03-18',
   },
   {
     id: '9',
@@ -141,7 +141,7 @@ export const books = [
     pages: 208,
     language: 'English',
     publisher: 'HarperOne',
-    publicationDate: '1988-01-01',
+    publication_date: '1988-01-01',
   },
   {
     id: '10',
@@ -157,7 +157,7 @@ export const books = [
     pages: 1178,
     language: 'English',
     publisher: 'Houghton Mifflin',
-    publicationDate: '1954-07-29',
+    publication_date: '1954-07-29',
   },
 ];
 

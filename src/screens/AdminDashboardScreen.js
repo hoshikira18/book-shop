@@ -10,6 +10,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../context/AuthContext';
 import { theme } from '../theme';
+import { insertBooks } from '../utils/insertBooks';
 
 export const AdminDashboardScreen = ({ navigation }) => {
   const { user, signout } = useAuth();
@@ -33,14 +34,22 @@ export const AdminDashboardScreen = ({ navigation }) => {
     {
       title: 'Manage Products',
       description: 'Add, edit, or remove books',
-      icon: '📚',
       onPress: () => navigation.navigate('ManageProducts'),
+    },
+    {
+      title: 'Revenue Statistics',
+      description: 'View sales and revenue data',
+      onPress: () => navigation.navigate('RevenueStatistics'),
     },
     {
       title: 'Browse Shop',
       description: 'View customer interface',
-      icon: '🛍️',
       onPress: () => navigation.navigate('Home'),
+    },
+    {
+      title: 'Insert Sample Books',
+      description: 'Add sample books to the database',
+      onPress: async () => await insertBooks(),
     },
   ];
 
@@ -59,7 +68,6 @@ export const AdminDashboardScreen = ({ navigation }) => {
               style={styles.menuItem}
               onPress={item.onPress}
             >
-              <Text style={styles.menuIcon}>{item.icon}</Text>
               <View style={styles.menuContent}>
                 <Text style={styles.menuTitle}>{item.title}</Text>
                 <Text style={styles.menuDescription}>{item.description}</Text>
