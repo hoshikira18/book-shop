@@ -14,7 +14,7 @@ import { BookCard } from '../components/BookCard';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useProducts } from '../context/ProductContext';
-import { books, categories } from '../data/books';
+import { categories } from '../data/books';
 import { theme } from '../theme';
 
 export const HomeScreen = ({ navigation }) => {
@@ -26,7 +26,7 @@ export const HomeScreen = ({ navigation }) => {
   const { products, loading } = useProducts();
 
   // Use products from ProductContext, fallback to static books
-  const booksToDisplay = products.length > 0 ? products : books;
+  const booksToDisplay = products.length > 0 ? products : [];
 
   const handleSignout = () => {
     Alert.alert(

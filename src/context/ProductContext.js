@@ -31,6 +31,8 @@ export const ProductProvider = ({ children }) => {
     }
   }, []);
 
+console.log({products})
+
   useEffect(() => {
     loadProducts();
   }, [loadProducts]);

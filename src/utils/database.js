@@ -190,6 +190,53 @@ export const clearDatabase = async () => {
   }
 };
 
+// Clear all data including products and users (except admin)
+export const clearAllData = async () => {
+  try {
+    const database = getDatabase();
+    
+    // Delete all data in the correct order (foreign key constraints)
+    await database.execAsync(`
+      DELETE FROM order_items;
+      DELETE FROM orders;
+      DELETE FROM products;
+      DELETE FROM users WHERE email != 'admin@bookshop.com';
+    `);
+    
+    console.log('All data cleared successfully (admin account preserved)');
+    return true;
+  } catch (error) {
+    console.error('Error clearing all data:', error);
+    throw error;
+  }
+};
+
+// Reset database completely (drops all tables and recreates them)
+export const resetDatabase = async () => {
+  try {
+    const database = getDatabase();
+    
+    // Drop all tables
+    await database.execAsync(`
+      DROP TABLE IF EXISTS order_items;
+      DROP TABLE IF EXISTS orders;
+      DROP TABLE IF EXISTS products;
+      DROP TABLE IF EXISTS users;
+    `);
+    
+    console.log('All tables dropped');
+    
+    // Reinitialize the database
+    await initDatabase();
+    
+    console.log('Database reset successfully');
+    return true;
+  } catch (error) {
+    console.error('Error resetting database:', error);
+    throw error;
+  }
+};
+
 // ============ AUTH FUNCTIONS ============
 
 // Register a new user

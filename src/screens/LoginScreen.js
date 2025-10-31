@@ -16,8 +16,8 @@ import { useAuth } from '../context/AuthContext';
 import { theme } from '../theme';
 
 export const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState('khuyen1@gmail.com');
-  const [password, setPassword] = useState('88888888');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
   const { signin } = useAuth();

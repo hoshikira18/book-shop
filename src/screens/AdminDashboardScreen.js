@@ -11,6 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../context/AuthContext';
 import { theme } from '../theme';
 import { insertBooks } from '../utils/insertBooks';
+import { clearAllData, resetDatabase } from '../utils/database';
 
 export const AdminDashboardScreen = ({ navigation }) => {
   const { user, signout } = useAuth();
@@ -51,6 +52,11 @@ export const AdminDashboardScreen = ({ navigation }) => {
       description: 'Add sample books to the database',
       onPress: async () => await insertBooks(),
     },
+    {
+      title: 'Reset Database',
+      description: 'Clear all data and reset the database',
+      onPress: async () => await clearAllData(),
+    }
   ];
 
   return (
